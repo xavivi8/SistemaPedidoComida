@@ -4,4 +4,12 @@
   <artifactId>Servidor</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>Servidor</name>
+  
+  <dependencies>
+	  <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version> <!-- Asegúrate de usar la versión correcta -->
+        </dependency>
+  </dependencies>
 </project>
