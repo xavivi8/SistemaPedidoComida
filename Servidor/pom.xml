@@ -11,5 +11,28 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.23</version> <!-- Asegúrate de usar la versión correcta -->
         </dependency>
+        <dependency>
+	    	<groupId>org.hibernate.orm</groupId>
+	    	<artifactId>hibernate-core</artifactId>
+	    	<version>6.3.1.Final</version>
+		</dependency>
   </dependencies>
+  <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <!-- Otras configuraciones -->
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <fork>true</fork>
+                    <compilerArgs>
+                        <arg>-Dfile.encoding=UTF-8</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
