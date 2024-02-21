@@ -3,9 +3,9 @@
 <hibernate-configuration>
     <session-factory>
         <!-- Propiedades de conexión a la base de datos -->
-        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/bsexamen</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/comidas</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">FJMusuario0000@</property>
+        <property name="hibernate.connection.password">Javier0000@</property>
         
         <!-- Configuración de Hibernate -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
