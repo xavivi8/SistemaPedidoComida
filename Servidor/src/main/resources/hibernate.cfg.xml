@@ -14,7 +14,10 @@
         
         <!-- Asignación de la clase de entidad -->
         <property name="hibernate.archive.autodetection">class</property>
-        <mapping class="cRUDConHibernate.Usuarios" />
+        <mapping class="dbControler.Comida" />
+        
+        <property name="hibernate.archive.autodetection">class</property>
+        <mapping class="dbControler.Usuario" />
         
     </session-factory>
 </hibernate-configuration>
