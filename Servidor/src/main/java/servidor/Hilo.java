@@ -79,4 +79,33 @@ public class Hilo extends Thread{
             }
         }
 	}
+	
+	private static boolean checkUsuario(int rol) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            try {
+                // Consulta para verificar si existe un usuario con el rol especificado
+                Query<Long> query = session.createQuery("SELECT COUNT(*) FROM Usuario u WHERE u.rol = :rol", Long.class);
+                query.setParameter("rol", rol);
+                Long count = query.uniqueResult(); // Obtiene el número de usuarios con el rol especificado
+
+                // Verifica si existe al menos un usuario con el rol especificado
+                if (count != null && count > 0) {
+                    // Existe al menos un usuario con el rol especificado
+                	
+                    transaction.commit(); // Confirma la transacción
+                    return true;
+                } else {
+                    // No existe ningún usuario con el rol especificado
+                    transaction.rollback(); // Revierte la transacción
+                    return false;
+                }
+            } catch (Exception e) {
+                // Manejo de excepciones
+                e.printStackTrace();
+                transaction.rollback(); // Revierte la transacción
+                return false;
+            }
+        }
+    }
 }
