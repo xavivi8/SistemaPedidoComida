@@ -19,6 +19,9 @@ public class Usuario {
 
 	@Column(name = "rol")
 	private int rol;
+	
+	@Column(name = "pass")
+	private String pass;
 
 	@Column(name = "nombre")
 	private String nombre;
@@ -30,10 +33,11 @@ public class Usuario {
 	private String apellido2;
 
 	// Constructor con todos los campos
-	public Usuario(int idUsuario, int rol, String nombre, String apellido1, String apellido2) {
+	public Usuario(int idUsuario, int rol, String nombre, String pass,String apellido1, String apellido2) {
 		this.idUsuario = idUsuario;
 		this.rol = rol;
 		this.nombre = nombre;
+		this.pass = pass;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 	}
