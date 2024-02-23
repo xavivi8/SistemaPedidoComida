@@ -20,7 +20,9 @@ public class Funciones {
 		return "===== Menú rellenar comidas ====="
 				+ "\n Ver comidas 1)"
 				+ "\n Rellenar comidas 2)"
-				+ "\n Finalizar rellenado 3)"
+				+ "\n Añadir comida 3)"
+				+ "\n Quitar comida 4)"
+				+ "\n Finalizar rellenado 5)"
 				+ "\n Terminar 0)";
 	}
 }
