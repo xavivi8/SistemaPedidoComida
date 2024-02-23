@@ -7,6 +7,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import bdControler.Servicio;
+import logger.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class Hilo extends Thread {
 	private static SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
 			.buildSessionFactory();
 	private static Servicio servicio = new Servicio();
+	private static Log logger = new Log("log.txt");
 	private Socket clienteSocket;
 
 	public Hilo(Socket socket) {
@@ -26,6 +28,7 @@ public class Hilo extends Thread {
 	}
 
 	public void run() {
+		logger.logConnection("IP conectada: "+clienteSocket.getInetAddress());
 		int rolUsuario = -1;
 		/**
 		 * Bucle que comprueba que este logeado
