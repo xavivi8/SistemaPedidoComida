@@ -1,5 +1,7 @@
 package bdControler;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -98,6 +100,25 @@ public class Servicio {
             }
         }
 	}
+	
+	public static List<Comida> obtenerTodasLasComidas() {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            try {
+                // Consulta para obtener todas las comidas
+                Query<Comida> query = session.createQuery("FROM Comida", Comida.class);
+                List<Comida> comidas = query.list(); // Obtiene la lista de comidas
+
+                transaction.commit(); // Confirma la transacción
+                return comidas;
+            } catch (Exception e) {
+                // Manejo de excepciones
+                e.printStackTrace();
+                transaction.rollback(); // Revierte la transacción
+                return null; // O maneja el error según lo requieras
+            }
+        }
+    }
 	
 	/*public static boolean checkUsuario(int rol) {
         try (Session session = sessionFactory.openSession()) {
