@@ -178,6 +178,34 @@ public class Servicio {
 	        }
 	    }
 	}
+	
+	public static String eliminarComida(String nombreComida) {
+	    try (Session session = sessionFactory.openSession()) {
+	        Transaction transaction = session.beginTransaction();
+	        try {
+	            // Buscar la comida por su nombre
+	            Query<Comida> query = session.createQuery("FROM Comida WHERE nombre = :nombre", Comida.class);
+	            query.setParameter("nombre", nombreComida);
+	            Comida comida = query.uniqueResult();
+
+	            if (comida != null) {
+	                session.delete(comida); // Eliminar la comida de la base de datos
+	                transaction.commit(); // Confirmar la transacción
+	                return "Comida eliminada con éxito";
+	            } else {
+	                // La comida no existe en la base de datos
+	                transaction.rollback(); // Revertir la transacción
+	                return "La comida no existe en la base de datos";
+	            }
+	        } catch (Exception e) {
+	            // Manejo de excepciones
+	            e.printStackTrace();
+	            transaction.rollback(); // Revertir la transacción
+	            return "Error al eliminar comida";
+	        }
+	    }
+	}
+
 
 	
 	/*public static boolean checkUsuario(int rol) {
