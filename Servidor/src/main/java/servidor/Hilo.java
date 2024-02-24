@@ -97,11 +97,8 @@ public class Hilo extends Thread {
 					String vuelta = getClientNameFromSocket();
 					opcion = Integer.parseInt(vuelta);
 					switch (opcion) {
-					case 0:
-						enviarMensajeCliente("Tenga un buen día");
-						break;
 					case 1:
-						System.out.println("Opción 1 seleccionada");
+						opcion = menuRellenarComida();
 						break;
 					case 2:
 						opcion = menuUsuario();
@@ -211,20 +208,22 @@ public class Hilo extends Thread {
 					case 3:
 						enviarMensajeCliente("Inserte la comida que quiera añadir");
 						vuelta = getClientNameFromSocket();
-						enviarMensajeCliente(anyadirComida(vuelta));
+						enviarMensajeCliente(servicio.anyadirComida(vuelta));
 						break;
 					case 4:
-						//enviarMensajeCliente(listaComida());
+						enviarMensajeCliente("Inserte la comida que quiera añadir");
+						vuelta = getClientNameFromSocket();
+						enviarMensajeCliente(servicio.eliminarComida(vuelta));
 						break;
 					case 5:
-						//enviarMensajeCliente(listaComida());
+						enviarMensajeCliente("Saliendo del menu de administración");
 						break;
 					default:
 						enviarMensajeCliente("Opción no válida");
 						break;
 					}
 				}
-			} while (opcion != 0);
+			} while (opcion != 0 && opcion != 5);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -240,11 +239,5 @@ public class Hilo extends Thread {
 		return "";
 	}
 	
-	private String anyadirComida(String mensaje) {
-		
-		String confirmacion = servicio.anyadirComida(mensaje);
-		
-		return confirmacion;
-	}
 
 }
