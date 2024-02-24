@@ -120,6 +120,66 @@ public class Servicio {
         }
     }
 	
+	public static String rellenarComida(String nomComida, int cantidad) {
+	    try (Session session = sessionFactory.openSession()) {
+	        Transaction transaction = session.beginTransaction();
+	        try {
+	            // Consulta para obtener la comida por su nombre
+	            Query<Comida> query = session.createQuery("FROM Comida WHERE nombre = :nombre", Comida.class);
+	            query.setParameter("nombre", nomComida);
+	            Comida comida = query.uniqueResult(); // Obtiene la comida de la consulta
+
+	            if (comida != null) {
+	                // Incrementa la cantidad de comida
+	                comida.setCantidad(comida.getCantidad() + cantidad);
+	                session.update(comida); // Actualiza la comida en la base de datos
+
+	                transaction.commit(); // Confirma la transacción
+	                return "Comida rellenada con éxito";
+	            } else {
+	                // No se encontró la comida
+	                transaction.rollback(); // Revierte la transacción
+	                return "No se encontró la comida";
+	            }
+	        } catch (Exception e) {
+	            // Manejo de excepciones
+	            e.printStackTrace();
+	            transaction.rollback(); // Revierte la transacción
+	            return "Error al rellenar comida";
+	        }
+	    }
+	}
+	
+	public static String anyadirComida(String nombreComida) {
+	    try (Session session = sessionFactory.openSession()) {
+	        Transaction transaction = session.beginTransaction();
+	        try {
+	            // Verificar si la comida ya existe en la base de datos
+	            Query<Comida> query = session.createQuery("FROM Comida WHERE nombre = :nombre", Comida.class);
+	            query.setParameter("nombre", nombreComida);
+	            Comida existingComida = query.uniqueResult();
+
+	            if (existingComida == null) {
+	                // Crear una nueva comida con cantidad 0
+	                Comida nuevaComida = new Comida(nombreComida, 0);
+	                session.save(nuevaComida); // Guardar la nueva comida en la base de datos
+	                transaction.commit(); // Confirmar la transacción
+	                return "Comida añadida con éxito";
+	            } else {
+	                // La comida ya existe en la base de datos
+	                transaction.rollback(); // Revertir la transacción
+	                return "La comida ya existe en la base de datos";
+	            }
+	        } catch (Exception e) {
+	            // Manejo de excepciones
+	            e.printStackTrace();
+	            transaction.rollback(); // Revertir la transacción
+	            return "Error al añadir comida";
+	        }
+	    }
+	}
+
+	
 	/*public static boolean checkUsuario(int rol) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
