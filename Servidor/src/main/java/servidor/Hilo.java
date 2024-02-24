@@ -49,40 +49,18 @@ public class Hilo extends Thread {
 		 * Control de roll
 		 */
 		int opcion = -1;
-		try {
-			if (rolUsuario == 1) {
-				do {
-					if (opcion != 0) {
+		if (rolUsuario == 1) {
+			do {
 
-						enviarMensajeCliente(Funciones.menuAdmin());
-						String vuelta = getClientNameFromSocket();
-						opcion = Integer.parseInt(vuelta);
-						switch (opcion) {
-						case 0:
-							enviarMensajeCliente("Tenga un buen día");
-							break;
-						case 1:
-							System.out.println("Opción 1 seleccionada");
-							break;
-						case 2:
-							opcion = menuUsuario();
-							break;
-						default:
-							enviarMensajeCliente("Opción no válida");
-							break;
-						}
-					}
-				} while (opcion != 0);
-			} else {
-				do {
-					if (opcion != 0) {
-						opcion = menuUsuario();
-					}
-				} while (opcion != 0);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				opcion = menuAdmin();
+
+			} while (opcion != 0);
+		} else {
+			do {
+
+				opcion = menuUsuario();
+
+			} while (opcion != 0);
 		}
 
 	}
@@ -115,10 +93,23 @@ public class Hilo extends Thread {
 		try {
 			do {
 				if (opcion != 0) {
-					enviarMensajeCliente(Funciones.menuRellenarComida());
-					String vuelta;
-					vuelta = getClientNameFromSocket();
+					enviarMensajeCliente(Funciones.menuAdmin());
+					String vuelta = getClientNameFromSocket();
 					opcion = Integer.parseInt(vuelta);
+					switch (opcion) {
+					case 0:
+						enviarMensajeCliente("Tenga un buen día");
+						break;
+					case 1:
+						System.out.println("Opción 1 seleccionada");
+						break;
+					case 2:
+						opcion = menuUsuario();
+						break;
+					default:
+						enviarMensajeCliente("Opción no válida");
+						break;
+					}
 				}
 
 			} while (opcion != 0);
@@ -189,6 +180,70 @@ public class Hilo extends Thread {
 
 		String confirmacion = servicio.cogerComida(result[0], Integer.parseInt(result[1]));
 
+		return confirmacion;
+	}
+
+	/* Control del menú rellenar comida */
+
+	private int menuRellenarComida() {
+		int opcion = -1;
+		try {
+			do {
+				if (opcion != 0) {
+					enviarMensajeCliente(Funciones.menuRellenarComida());
+					String vuelta;
+					vuelta = getClientNameFromSocket();
+					opcion = Integer.parseInt(vuelta);
+
+					switch (opcion) {
+					case 0:
+						enviarMensajeCliente("Tenga un buen día");
+						break;
+					case 1:
+						enviarMensajeCliente(listaComida());
+						break;
+					case 2:
+						enviarMensajeCliente(
+								"Inserte el nombre y la cantidad de comida que desea rellenar de esta manera: empanadilla,23");
+						vuelta = getClientNameFromSocket();
+						enviarMensajeCliente(rellenarComida(vuelta));
+						break;
+					case 3:
+						enviarMensajeCliente("Inserte la comida que quiera añadir");
+						vuelta = getClientNameFromSocket();
+						enviarMensajeCliente(anyadirComida(vuelta));
+						break;
+					case 4:
+						//enviarMensajeCliente(listaComida());
+						break;
+					case 5:
+						//enviarMensajeCliente(listaComida());
+						break;
+					default:
+						enviarMensajeCliente("Opción no válida");
+						break;
+					}
+				}
+			} while (opcion != 0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return opcion;
+	}
+	
+	private String rellenarComida(String mensaje) {
+		String[] result = splitByComma(mensaje);
+		
+		String confirmacion = servicio.rellenarComida(result[0], Integer.parseInt(result[1]));
+		
+		return "";
+	}
+	
+	private String anyadirComida(String mensaje) {
+		
+		String confirmacion = servicio.anyadirComida(mensaje);
+		
 		return confirmacion;
 	}
 
