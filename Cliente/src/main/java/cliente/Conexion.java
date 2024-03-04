@@ -5,15 +5,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Conexion {
 	
 	private static final String SERVER_IP = "127.0.0.1";
-	private static final int PUERTO = 2024;
-	private static Socket socket;
+    private static final int PUERTO = 2024;
+    private static Socket socket;
 
-	public void conexion() {
-		try {
+    public void conexion() {
+        try {
             socket = new Socket(SERVER_IP, PUERTO);
             System.out.println("Conexión establecida con el servidor.");
 
@@ -52,9 +54,9 @@ public class Conexion {
                 }
             }
         }
-	}
-	
-	private static void enviarMensaje(Socket socket, String mensaje) throws IOException {
+    }
+
+    private static void enviarMensaje(Socket socket, String mensaje) throws IOException {
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         writer.println(mensaje);
     }
@@ -75,7 +77,30 @@ public class Conexion {
         String mensaje;
 
         while ((mensaje = reader.readLine()) != null) {
-            System.out.println("Servidor: " + mensaje);
+            if (mensaje.equals("Ingrese su contraseña:")) {
+                // Se solicita la contraseña, la encriptamos y la enviamos
+                String contraseñaEncriptada = cifrarContraseñaConMd5("tuContraseña");
+                enviarMensaje(socket, contraseñaEncriptada);
+            } else {
+                System.out.println("Servidor: " + mensaje);
+            }
+        }
+    }
+
+    public static String cifrarContraseñaConMd5(String laContraseña) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] bytes = md.digest(laContraseña.getBytes());
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : bytes) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
