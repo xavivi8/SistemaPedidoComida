@@ -47,7 +47,7 @@ public class Hilo extends Thread {
 			if (rolUsuario >= 0) {
 				logeado = true;
 			}
-		} while (logeado == false);
+		} while (logeado != false);
 
 		/**
 		 * Control de roll
