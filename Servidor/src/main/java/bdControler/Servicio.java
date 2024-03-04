@@ -14,32 +14,32 @@ public class Servicio {
 	
 	
 	public int obtenerRolUsuario(String nombreUsuario, String contraseña) {
-        try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            try {
-                // Consulta para obtener el rol del usuario basado en el nombre de usuario y contraseña
-                Query<Integer> query = session.createQuery("SELECT u.rol FROM Usuario u WHERE u.usuario = :usuario AND u.pass = :pass", Integer.class);
-                query.setParameter("usuario", nombreUsuario);
-                query.setParameter("pass", contraseña);
-                Integer rol = query.uniqueResult(); // Obtiene el rol de la consulta
+	    try (Session session = sessionFactory.openSession()) {
+	        Transaction transaction = session.beginTransaction();
+	        try {
+	            // Consulta para obtener el rol del usuario basado en el nombre de usuario y contraseña
+	            Query<Integer> query = session.createQuery("SELECT u.rol FROM Usuario u WHERE u.nombre = :nombreUsuario AND u.pass = :contraseña", Integer.class);
+	            query.setParameter("nombreUsuario", nombreUsuario);
+	            query.setParameter("contraseña", contraseña);
+	            Integer rol = query.uniqueResult(); // Obtiene el rol de la consulta
 
-                if (rol != null) {
-                    // Se encontró el usuario, retornamos su rol
-                    transaction.commit();
-                    return rol;
-                } else {
-                    // No se encontró el usuario, retornamos -1
-                    transaction.rollback();
-                    return -1;
-                }
-            } catch (Exception e) {
-                // Manejo de excepciones
-                e.printStackTrace();
-                transaction.rollback(); // Revierte la transacción
-                return -1;
-            }
-        }
-    }
+	            if (rol != null) {
+	                // Se encontró el usuario, retornamos su rol
+	                transaction.commit();
+	                return rol;
+	            } else {
+	                // No se encontró el usuario, retornamos -1
+	                transaction.rollback();
+	                return -1;
+	            }
+	        } catch (Exception e) {
+	            // Manejo de excepciones
+	            e.printStackTrace();
+	            transaction.rollback(); // Revierte la transacción
+	            return -1;
+	        }
+	    }
+	}
 	
 	public static String cogerComida(String nomComida, int cantidad) {
 		try (Session session = sessionFactory.openSession()) {
