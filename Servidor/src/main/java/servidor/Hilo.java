@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.List;
+import java.util.Scanner;
 
 public class Hilo extends Thread {
 	private static Configuration config = new Configuration();
@@ -24,12 +25,15 @@ public class Hilo extends Thread {
 	private static Servicio servicio = new Servicio();
 	private static Log logger = new Log("log.txt");
 	private Socket clienteSocket;
-
+	private static final Scanner entrada = new Scanner(System.in);
+	
 	public Hilo(Socket socket) {
 		this.clienteSocket = socket;
 	}
 
 	public void run() {
+		System.out.println("Dd");
+		String a = entrada.nextLine();
 		logger.logConnection("IP conectada: " + clienteSocket.getInetAddress());
 		int rolUsuario = -1;
 		/**
