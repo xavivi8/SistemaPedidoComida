@@ -3,22 +3,20 @@
 <hibernate-configuration>
     <session-factory>
         <!-- Propiedades de conexión a la base de datos -->
-        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/comidas</property>
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/comidasdb</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">Javier0000@</property>
         
         <!-- Configuración de Hibernate -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
-        <property name="hbm2ddl.auto">update</property>
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+        <property name="hbm2ddl.auto">create-drop</property>
         
-        <!-- Asignación de la clase de entidad -->
+        <!-- Exploración de clases de entidad -->
         <property name="hibernate.archive.autodetection">class</property>
-        <mapping class="dbControler.Comida" />
-        
-        <property name="hibernate.archive.autodetection">class</property>
-        <mapping class="dbControler.Usuario" />
+        <mapping class="bdControler.Comida" />
+        <mapping class="bdControler.Usuario" />
         
     </session-factory>
 </hibernate-configuration>
-
