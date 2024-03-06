@@ -26,8 +26,7 @@ public class Comida {
 
 	/* Constructores */
 	public Comida() {
-		this.nombre = "";
-		this.cantidad = 1;
+		
 	}
 	
 	// Constructor con todos los campos
