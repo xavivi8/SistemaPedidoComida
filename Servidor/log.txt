@@ -1,2 +1,2 @@
-mar 04, 2024 6:01:12 P. M. logger.Log logConnection
+mar 06, 2024 11:34:51 A. M. logger.Log logConnection
 INFORMACIÓN: IP conectada: /127.0.0.1
