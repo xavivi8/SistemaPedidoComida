@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS comida (
 CREATE TABLE IF NOT EXISTS usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     rol INT,
+    pass VARCHAR(250) NOT NULL,
     nombre VARCHAR(250) NOT NULL,
     apellido1 VARCHAR(250) NOT NULL,
     apellido2 VARCHAR(250)
