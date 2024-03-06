@@ -32,6 +32,15 @@ public class Usuario {
 	@Column(name = "apellido2")
 	private String apellido2;
 
+	/* Constructores */
+	
+	public Usuario() {
+		this.rol = 1;
+		this.nombre = "";
+		this.apellido1 = "";
+		this.apellido2 = "";
+	}
+	
 	// Constructor con todos los campos
 	public Usuario(int idUsuario, int rol, String nombre, String pass,String apellido1, String apellido2) {
 		this.idUsuario = idUsuario;
