@@ -24,6 +24,12 @@ public class Comida {
 	@Column(name = "cantidad")
 	private int cantidad;
 
+	/* Constructores */
+	public Comida() {
+		this.nombre = "";
+		this.cantidad = 1;
+	}
+	
 	// Constructor con todos los campos
 	public Comida(int idComida, String nombre, int cantidad) {
 		this.idComida = idComida;
