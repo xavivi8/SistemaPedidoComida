@@ -81,6 +81,12 @@ public class Conexion {
                 // Se solicita la contraseña, la encriptamos y la enviamos
                 String contraseñaEncriptada = cifrarContraseñaConMd5("tuContraseña");
                 enviarMensaje(socket, contraseñaEncriptada);
+            } else if (mensaje.equals("Tenga un buen día")) {
+                System.out.println("Servidor: " + mensaje);
+                System.out.println("Desconectando del servidor...");
+                socket.close(); // Cierra el socket
+                System.exit(0); // Termina la aplicación del cliente
+                break; // Sale del bucle while
             } else {
                 System.out.println("Servidor: " + mensaje);
             }

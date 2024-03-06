@@ -32,8 +32,8 @@ public class Hilo extends Thread {
 	}
 
 	public void run() {
-		System.out.println("Dd");
-		String a = entrada.nextLine();
+		//System.out.println("Dd");
+		//String a = entrada.nextLine();
 		logger.logConnection("IP conectada: " + clienteSocket.getInetAddress());
 		int rolUsuario = -1;
 		/**
