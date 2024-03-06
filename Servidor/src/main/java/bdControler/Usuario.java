@@ -35,10 +35,7 @@ public class Usuario {
 	/* Constructores */
 	
 	public Usuario() {
-		this.rol = 1;
-		this.nombre = "";
-		this.apellido1 = "";
-		this.apellido2 = "";
+		
 	}
 	
 	// Constructor con todos los campos
