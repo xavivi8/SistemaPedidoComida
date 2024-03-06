@@ -26,14 +26,14 @@ public class Hilo extends Thread {
 	private static Log logger = new Log("log.txt");
 	private Socket clienteSocket;
 	private static final Scanner entrada = new Scanner(System.in);
-	
+
 	public Hilo(Socket socket) {
 		this.clienteSocket = socket;
 	}
 
 	public void run() {
-		//System.out.println("Dd");
-		//String a = entrada.nextLine();
+		// System.out.println("Dd");
+		// String a = entrada.nextLine();
 		logger.logConnection("IP conectada: " + clienteSocket.getInetAddress());
 		int rolUsuario = -1;
 		/**
@@ -41,26 +41,30 @@ public class Hilo extends Thread {
 		 */
 		boolean logeado = false;
 		do {
-            // Solicitar al cliente que ingrese el nombre de usuario y la contraseña
-            enviarMensajeCliente("Por favor, ingrese su nombre de usuario y contraseña separados por coma (usuario,contraseña):");
-            String input;
-            try {
-                input = getClientNameFromSocket();
-                String[] result = splitByComma(input);
-                if(result.length == 2) {
-                	rolUsuario = servicio.obtenerRolUsuario(result[0], result[1]);
-                }
-                
-                if(rolUsuario >= 0) {
-                	logeado = true;
-                }
-                if (!logeado) {
-                    enviarMensajeCliente("Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } while (!logeado);
+			// Solicitar al cliente que ingrese el nombre de usuario y la contraseña
+			enviarMensajeCliente(
+					"Por favor, ingrese su nombre de usuario y contraseña separados por coma (usuario,contraseña):");
+			String input;
+			try {
+				input = getClientNameFromSocket();
+				String[] result = splitByComma(input);
+				if (result.length == 2) {
+					rolUsuario = servicio.obtenerRolUsuario(result[0], result[1]);
+					System.out.println("rolUsuario" + rolUsuario);
+					System.out.println(result[0] + " / " + result[1]);
+				}
+
+				if (rolUsuario >= 0) {
+					logeado = true;
+					if (!logeado) {
+						enviarMensajeCliente("Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.");
+					}
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} while (!logeado);
 
 		/**
 		 * Control de roll
@@ -112,23 +116,28 @@ public class Hilo extends Thread {
 				if (opcion != 0) {
 					enviarMensajeCliente(Funciones.menuAdmin());
 					String vuelta = getClientNameFromSocket();
-					opcion = Integer.parseInt(vuelta);
-					switch (opcion) {
-					case 1:
-						opcion = menuRellenarComida();
-						break;
-					case 2:
-						opcion = menuUsuario();
-						break;
-					default:
-						enviarMensajeCliente("Opción no válida");
-						break;
+					try {
+						opcion = Integer.parseInt(vuelta);
+						switch (opcion) {
+						case 0:
+							enviarMensajeCliente("Tenga un buen día");
+							break;
+						case 1:
+							opcion = menuRellenarComida();
+							break;
+						case 2:
+							opcion = menuUsuario();
+							break;
+						default:
+							enviarMensajeCliente("Opción no válida");
+							break;
+						}
+					} catch (NumberFormatException e) {
+						enviarMensajeCliente("Ingrese un número válido.");
 					}
 				}
-
 			} while (opcion != 0);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return opcion;
@@ -247,14 +256,13 @@ public class Hilo extends Thread {
 		}
 		return opcion;
 	}
-	
+
 	private String rellenarComida(String mensaje) {
 		String[] result = splitByComma(mensaje);
-		
+
 		String confirmacion = servicio.rellenarComida(result[0], Integer.parseInt(result[1]));
-		
+
 		return "";
 	}
-	
 
 }
