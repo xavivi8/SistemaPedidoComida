@@ -41,13 +41,26 @@ public class Hilo extends Thread {
 		 */
 		boolean logeado = false;
 		do {
-			String input = "awdwaw,efesf";
-			String[] result = splitByComma(input);
-			rolUsuario = servicio.obtenerRolUsuario(result[0], result[1]);
-			if (rolUsuario >= 0) {
-				logeado = true;
-			}
-		} while (logeado != false);
+            // Solicitar al cliente que ingrese el nombre de usuario y la contraseña
+            enviarMensajeCliente("Por favor, ingrese su nombre de usuario y contraseña separados por coma (usuario,contraseña):");
+            String input;
+            try {
+                input = getClientNameFromSocket();
+                String[] result = splitByComma(input);
+                if(result.length == 2) {
+                	rolUsuario = servicio.obtenerRolUsuario(result[0], result[1]);
+                }
+                
+                if(rolUsuario >= 0) {
+                	logeado = true;
+                }
+                if (!logeado) {
+                    enviarMensajeCliente("Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } while (!logeado);
 
 		/**
 		 * Control de roll
