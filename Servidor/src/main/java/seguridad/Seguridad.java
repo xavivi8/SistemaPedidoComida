@@ -18,6 +18,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 
+/**
+ * Objetivo: 
+ * autor: Francisco Javier Martín-Lunas Escobar
+ * fecha: 03/03/2024	
+ */
 public class Seguridad {
 
 	public void laSeguridad() {
