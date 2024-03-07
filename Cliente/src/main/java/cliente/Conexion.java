@@ -12,12 +12,20 @@ import java.util.Scanner;
 
 import Seguridad.Seguridad;
 
+/**
+ * Objetivo: Clase que gestiona la conexión del cliente con el servidor.
+ * autor: Francisco Javier Martín-Lunas Escobar
+ * fecha: 03/03/2024
+ */
 public class Conexion {
     private static final String SERVER_IP = "127.0.0.1";
     //private static final String SERVER_IP = "143.47.54.55";
     private static final int PUERTO = 2024;
     private static Socket socket;
 
+    /**
+     * Establece una conexión con el servidor y gestiona el proceso de inicio de sesión.
+     */
     public void conexion() {
         try {
             socket = new Socket(SERVER_IP, PUERTO);
@@ -65,6 +73,12 @@ public class Conexion {
         }
     }
 
+    /**
+     * Inicia sesión con el servidor.
+     * @param socket el socket de conexión con el servidor
+     * @return true si el inicio de sesión fue exitoso, false de lo contrario
+     * @throws IOException si hay un error de entrada/salida
+     */
     private static boolean iniciarSesion(Socket socket) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
@@ -101,11 +115,22 @@ public class Conexion {
         }
     }
 
+    /**
+     * Envía un mensaje al servidor.
+     * @param socket el socket de conexión con el servidor
+     * @param mensaje el mensaje a enviar
+     * @throws IOException si hay un error de entrada/salida
+     */
     private static void enviarMensaje(Socket socket, String mensaje) throws IOException {
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         writer.println(mensaje);
     }
 
+    /**
+     * Inicia un bucle para enviar mensajes al servidor.
+     * @param socket el socket de conexión con el servidor
+     * @throws IOException si hay un error de entrada/salida
+     */
     private static void enviarMensajes(Socket socket) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String mensaje;
@@ -117,6 +142,11 @@ public class Conexion {
         }
     }
 
+    /**
+     * Recibe mensajes del servidor.
+     * @param socket el socket de conexión con el servidor
+     * @throws IOException si hay un error de entrada/salida
+     */
     private static void recibirMensajes(Socket socket) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String mensaje;
