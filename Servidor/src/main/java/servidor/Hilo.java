@@ -18,6 +18,11 @@ import java.net.Socket;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Objetivo: Gestiona la comunicación con un cliente a través de un hilo de ejecución.
+ * autor: Francisco Javier Martín-Lunas Escobar
+ * fecha: 03/03/2024	
+ */
 public class Hilo extends Thread {
 	private static Configuration config = new Configuration();
 	private static SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
@@ -27,10 +32,17 @@ public class Hilo extends Thread {
 	private Socket clienteSocket;
 	private static final Scanner entrada = new Scanner(System.in);
 
+	/**
+	 * Constructor de la clase Hilo.
+	 * @param socket el socket del cliente
+	 */
 	public Hilo(Socket socket) {
 		this.clienteSocket = socket;
 	}
-
+	
+	/**
+	 * Método que inicia la ejecución del hilo.
+	 */
 	public void run() {
 		// System.out.println("Dd");
 		// String a = entrada.nextLine();
@@ -49,7 +61,7 @@ public class Hilo extends Thread {
 			String input;
 			try {
 				input = getClientNameFromSocket();
-				String[] result = splitByComma(input);
+				String[] result = Funciones.splitByComma(input);
 				usuario = result[0];
 				contrasenya = result[1];
 				rolUsuario = servicio.obtenerRolUsuario(usuario, contrasenya);
@@ -91,16 +103,21 @@ public class Hilo extends Thread {
 
 	}
 
+	/**
+	 * Método para obtener el nombre del cliente desde el socket.
+	 * @return el nombre del cliente
+	 * @throws IOException si hay un error de entrada/salida
+	 */
 	private String getClientNameFromSocket() throws IOException {
 		// Obtenemos el flujo de entrada del socket para leer el nombre del cliente.
 		BufferedReader input = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
 		return input.readLine(); // Suponiendo que el cliente envía su nombre como una línea de texto.
 	}
 
-	private static String[] splitByComma(String input) {
-		return input.split(",");
-	}
-
+	/**
+	 * Método para enviar un mensaje al cliente a través del socket.
+	 * @param mensaje el mensaje a enviar
+	 */
 	private void enviarMensajeCliente(String mensaje) {
 		try {
 			// Obtenemos el OutputStream del socket cliente
@@ -114,6 +131,10 @@ public class Hilo extends Thread {
 
 	/* Control del menu de administrador */
 
+	/**
+	 * Control del menú para el rol de administrador.
+	 * @return la opción seleccionada por el administrador
+	 */
 	private int menuAdmin() {
 		int opcion = -1;
 		try {
@@ -150,6 +171,10 @@ public class Hilo extends Thread {
 
 	/* Control del menu de usuarios */
 
+	/**
+	 * Control del menú para el rol de usuario.
+	 * @return la opción seleccionada por el usuario
+	 */
 	private int menuUsuario() {
 		int opcion = -1;
 		try {
@@ -185,7 +210,11 @@ public class Hilo extends Thread {
 		}
 		return opcion;
 	}
-
+	
+	/**
+	 * Método para obtener la lista de comidas disponibles.
+	 * @return la lista de comidas en formato de texto
+	 */
 	private String listaComida() {
 		List<Comida> lsitaDeComida = servicio.obtenerTodasLasComidas();
 		StringBuilder resultado = new StringBuilder();
@@ -203,8 +232,13 @@ public class Hilo extends Thread {
 		return resultado.toString();
 	}
 
+	/**
+	 * Método para solicitar comida al servidor.
+	 * @param mensaje el mensaje con la solicitud de comida
+	 * @return la confirmación de la solicitud
+	 */
 	private String pedirComida(String mensaje) {
-		String[] result = splitByComma(mensaje);
+		String[] result = Funciones.splitByComma(mensaje);
 
 		String confirmacion = servicio.cogerComida(result[0], Integer.parseInt(result[1]));
 
@@ -213,6 +247,10 @@ public class Hilo extends Thread {
 
 	/* Control del menú rellenar comida */
 
+	/**
+	 * Control del menú para rellenar comida.
+	 * @return la opción seleccionada por el administrador
+	 */
 	private int menuRellenarComida() {
 		int opcion = -1;
 		try {
@@ -261,9 +299,14 @@ public class Hilo extends Thread {
 		}
 		return opcion;
 	}
-
+	
+	/**
+	 * Método para rellenar la cantidad de comida.
+	 * @param mensaje el mensaje con la solicitud de rellenar comida
+	 * @return la confirmación del relleno de comida
+	 */
 	private String rellenarComida(String mensaje) {
-		String[] result = splitByComma(mensaje);
+		String[] result = Funciones.splitByComma(mensaje);
 
 		String confirmacion = servicio.rellenarComida(result[0], Integer.parseInt(result[1]));
 
