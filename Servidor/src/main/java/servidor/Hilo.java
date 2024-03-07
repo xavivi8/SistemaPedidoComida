@@ -40,6 +40,8 @@ public class Hilo extends Thread {
 		 * Bucle que comprueba que este logeado
 		 */
 		boolean logeado = false;
+		String usuario = "";
+		String contrasenya = "";
 		do {
 			// Solicitar al cliente que ingrese el nombre de usuario y la contraseña
 			enviarMensajeCliente(
@@ -48,13 +50,13 @@ public class Hilo extends Thread {
 			try {
 				input = getClientNameFromSocket();
 				String[] result = splitByComma(input);
-				if (result.length == 2) {
-					rolUsuario = servicio.obtenerRolUsuario(result[0], result[1]);
-					System.out.println("rolUsuario" + rolUsuario);
-					System.out.println(result[0] + " / " + result[1]);
-				}
+				usuario = result[0];
+				contrasenya = result[1];
+				rolUsuario = servicio.obtenerRolUsuario(usuario, contrasenya);
+				System.out.println("rolUsuario" + rolUsuario);
+				System.out.println(usuario + " / " + contrasenya);
 
-				if (rolUsuario >= 0) {
+				if (rolUsuario != -1) {
 					logeado = true;
 					if (!logeado) {
 						enviarMensajeCliente("Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.");
