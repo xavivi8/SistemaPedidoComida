@@ -7,10 +7,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 
 public class Conexion {
-	
-	private static final String SERVER_IP = "127.0.0.1";
+    private static final String SERVER_IP = "127.0.0.1";
     private static final int PUERTO = 2024;
     private static Socket socket;
 
