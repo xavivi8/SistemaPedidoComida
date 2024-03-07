@@ -10,8 +10,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
+import Seguridad.Seguridad;
+
 public class Conexion {
-    private static final String SERVER_IP = "127.0.0.1";
+    //private static final String SERVER_IP = "127.0.0.1";
+    private static final String SERVER_IP = "143.47.54.55";
     private static final int PUERTO = 2024;
     private static Socket socket;
 
@@ -79,7 +82,7 @@ public class Conexion {
             String contrasena = reader.readLine();
 
             // Cifra la contraseña antes de enviarla
-            String contrasenaCifrada = cifrarContrasena(contrasena);
+            String contrasenaCifrada = Seguridad.cifrarContraseñaConMd5(contrasena);
 
             // Envía el nombre de usuario y la contraseña cifrada al servidor
             writer.println(usuario + "," + contrasenaCifrada);
@@ -95,25 +98,6 @@ public class Conexion {
         } else {
             System.out.println("Número máximo de intentos alcanzado. Inicio de sesión fallido.");
             return false;
-        }
-    }
-
-    private static String cifrarContrasena(String contrasena) {
-        // Implementa aquí tu lógica de cifrado de contraseñas
-        // Por ejemplo, podrías usar MD5, SHA-256, etc.
-        // Aquí se muestra un ejemplo simple de cifrado con MD5:
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(contrasena.getBytes());
-            byte[] digest = md.digest();
-            StringBuilder sb = new StringBuilder();
-            for (byte b : digest) {
-                sb.append(String.format("%02x", b & 0xff));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 
