@@ -44,16 +44,17 @@ public class Log {
 	}
 
 	/**
+	 * Registra un mensaje de error junto con una excepción en el log.
 	 * 
-	 * @param message
-	 * @param throwable
+	 * @param message   el mensaje de error
+	 * @param throwable la excepción asociada al error
 	 */
 	public void logError(String message, Throwable throwable) {
 		logger.log(Level.SEVERE, message, throwable);
 	}
 
 	/**
-	 * 
+	 * Cierra el manejador del archivo de log.
 	 */
 	public void closeLogger() {
 		if (fileHandler != null) {
