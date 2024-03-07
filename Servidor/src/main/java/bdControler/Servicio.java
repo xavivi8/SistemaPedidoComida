@@ -8,11 +8,22 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+/**
+ * Objetivo: Proporciona servicios para interactuar con la base de datos de comidas.
+ * autor: Francisco Javier Martín-Lunas Escobar
+ * fecha: 03/03/2024	
+ */
 public class Servicio {
 	private static Configuration config = new Configuration();
 	private static SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 	
-	
+	/**
+	 * Obtiene el rol del usuario basado en el nombre de usuario y contraseña.
+	 * 
+	 * @param nombreUsuario el nombre de usuario
+	 * @param contraseña la contraseña del usuario
+	 * @return el rol del usuario, o -1 si no se encuentra el usuario
+	 */
 	public int obtenerRolUsuario(String nombreUsuario, String contraseña) {
 	    try (Session session = sessionFactory.openSession()) {
 	        Transaction transaction = session.beginTransaction();
@@ -41,6 +52,13 @@ public class Servicio {
 	    }
 	}
 	
+	/**
+	 * Intenta coger una cantidad específica de comida de la base de datos.
+	 * 
+	 * @param nomComida el nombre de la comida a coger
+	 * @param cantidad la cantidad de comida a coger
+	 * @return un mensaje indicando si la operación fue exitosa o no
+	 */
 	public static String cogerComida(String nomComida, int cantidad) {
 		try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -73,6 +91,13 @@ public class Servicio {
         }
 	}
 	
+	/**
+	 * Verifica si la cantidad de comida disponible es adecuada para ser cogida.
+	 * 
+	 * @param nomComida el nombre de la comida
+	 * @param cantidad la cantidad de comida a coger
+	 * @return true si la cantidad es adecuada, false de lo contrario
+	 */
 	private static boolean cantidadAdecuada(String nomComida,int cantidad) {
 		try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -101,6 +126,11 @@ public class Servicio {
         }
 	}
 	
+	/**
+	 * Obtiene todas las comidas disponibles en la base de datos.
+	 * 
+	 * @return una lista de todas las comidas, o null si ocurre un error
+	 */
 	public static List<Comida> obtenerTodasLasComidas() {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -120,6 +150,13 @@ public class Servicio {
         }
     }
 	
+	/**
+	 * Rellena la cantidad de una comida específica en la base de datos.
+	 * 
+	 * @param nomComida el nombre de la comida a rellenar
+	 * @param cantidad la cantidad de comida a añadir
+	 * @return un mensaje indicando si la operación fue exitosa o no
+	 */
 	public static String rellenarComida(String nomComida, int cantidad) {
 	    try (Session session = sessionFactory.openSession()) {
 	        Transaction transaction = session.beginTransaction();
@@ -150,6 +187,12 @@ public class Servicio {
 	    }
 	}
 	
+	/**
+	 * Añade una nueva comida a la base de datos.
+	 * 
+	 * @param nombreComida el nombre de la nueva comida
+	 * @return un mensaje indicando si la operación fue exitosa o no
+	 */
 	public static String anyadirComida(String nombreComida) {
 	    try (Session session = sessionFactory.openSession()) {
 	        Transaction transaction = session.beginTransaction();
@@ -179,6 +222,12 @@ public class Servicio {
 	    }
 	}
 	
+	/**
+	 * Elimina una comida de la base de datos.
+	 * 
+	 * @param nombreComida el nombre de la comida a eliminar
+	 * @return un mensaje indicando si la operación fue exitosa o no
+	 */
 	public static String eliminarComida(String nombreComida) {
 	    try (Session session = sessionFactory.openSession()) {
 	        Transaction transaction = session.beginTransaction();
