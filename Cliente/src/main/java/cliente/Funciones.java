@@ -3,8 +3,19 @@ package cliente;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Objetivo:
+ * Autor: Francisco Javier Martín-Lunas Escobar
+ * Fecha: 06/03/2024
+ */
 public class Funciones {
 
+	/**
+	 * Este método cifra la contraseña proporcionada utilizando el algoritmo de hash MD5.
+	 * 
+	 * @param laContraseña La contraseña que se va a cifrar.
+	 * @return La representación hexadecimal del hash MD5 de la contraseña.
+	 */
 	public static String cifrarContraseñaConMd5(String laContraseña) {
 		/*
 		 * Nota del alumno MessageDigest: La clase MessageDigest en Java es una parte
@@ -32,5 +43,9 @@ public class Funciones {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static String[] splitByComma(String input) {
+		return input.split(",");
 	}
 }
