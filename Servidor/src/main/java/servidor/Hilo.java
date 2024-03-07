@@ -242,7 +242,7 @@ public class Hilo extends Thread {
 						enviarMensajeCliente(servicio.anyadirComida(vuelta));
 						break;
 					case 4:
-						enviarMensajeCliente("Inserte la comida que quiera añadir");
+						enviarMensajeCliente("Inserte la comida que quiera eliminar");
 						vuelta = getClientNameFromSocket();
 						enviarMensajeCliente(servicio.eliminarComida(vuelta));
 						break;
