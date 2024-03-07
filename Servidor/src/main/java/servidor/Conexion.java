@@ -4,10 +4,18 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Objetivo: Clase que gestiona la conexión del servidor con los clientes.
+ * autor: Francisco Javier Martín-Lunas Escobar
+ * fecha: 03/03/2024	
+ */
 public class Conexion {
 	
 	private static final int PUERTO = 2024;
 	
+	/**
+	 * Establece la conexión del servidor en el puerto especificado y gestiona la llegada de clientes.
+	 */
 	public void conexion() {
 		try (ServerSocket serverSocket = new ServerSocket(PUERTO)) {
 			System.out.println("Servidor en puerto: " + PUERTO);
