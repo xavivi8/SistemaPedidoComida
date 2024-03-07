@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 
 import bdControler.Comida;
 import bdControler.Servicio;
+import bdControler.Usuario;
 import logger.Log;
 
 import java.io.BufferedReader;
@@ -31,6 +32,7 @@ public class Hilo extends Thread {
 	private static Log logger = new Log("log.txt");
 	private Socket clienteSocket;
 	private static final Scanner entrada = new Scanner(System.in);
+	public static String usuario = "";
 
 	/**
 	 * Constructor de la clase Hilo.
@@ -52,7 +54,6 @@ public class Hilo extends Thread {
 		 * Bucle que comprueba que este logeado
 		 */
 		boolean logeado = false;
-		String usuario = "";
 		String contrasenya = "";
 		while (!logeado){
 			// Solicitar al cliente que ingrese el nombre de usuario y la contraseña
@@ -241,6 +242,7 @@ public class Hilo extends Thread {
 		String[] result = Funciones.splitByComma(mensaje);
 
 		String confirmacion = servicio.cogerComida(result[0], Integer.parseInt(result[1]));
+		servicio.anyadirPedido(result[0], Integer.parseInt(result[1]), usuario);
 
 		return confirmacion;
 	}
