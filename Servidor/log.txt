@@ -4,3 +4,21 @@ mar 07, 2024 11:51:56 A. M. logger.Log logConnection
 INFORMACIÓN: IP conectada: /127.0.0.1
 mar 07, 2024 11:52:16 A. M. logger.Log logConnection
 INFORMACIÓN: IP conectada: /127.0.0.1
+mar 07, 2024 3:13:52 P. M. logger.Log logConnection
+INFORMACIÓN: IP conectada: /127.0.0.1
+mar 07, 2024 3:14:56 P. M. logger.Log logConnection
+INFORMACIÓN: IP conectada: /127.0.0.1
+mar 07, 2024 3:59:36 P. M. logger.Log logConnection
+INFORMACIÓN: IP conectada: /127.0.0.1
+mar 07, 2024 4:01:15 P. M. logger.Log logConnection
+INFORMACIÓN: IP conectada: /127.0.0.1
+mar 07, 2024 4:02:27 P. M. logger.Log logConnection
+INFORMACIÓN: IP conectada: /127.0.0.1
+mar 07, 2024 4:28:18 P. M. logger.Log logConnection
+INFORMACIÓN: IP conectada: /127.0.0.1
+mar 07, 2024 4:28:18 P. M. logger.Log logConnection
+INFORMACIÓN: IP conectada: /127.0.0.1
+mar 07, 2024 4:31:46 P. M. logger.Log logConnection
+INFORMACIÓN: IP conectada: /127.0.0.1
+mar 07, 2024 4:32:30 P. M. logger.Log logConnection
+INFORMACIÓN: IP conectada: /127.0.0.1
