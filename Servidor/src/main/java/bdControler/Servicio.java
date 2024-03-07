@@ -92,6 +92,43 @@ public class Servicio {
 	}
 	
 	/**
+     * Añade un nuevo pedido a la base de datos.
+     * 
+     * @param nomComida el nombre de la comida del pedido
+     * @param cantidad la cantidad de comida del pedido
+     * @param usuario el nombre del usuario asociado al pedido
+     * @return un mensaje indicando si la operación fue exitosa o no
+     */
+    public static String anyadirPedido(String nomComida, int cantidad, String usuario) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            try {
+                // Obtener el usuario por su nombre
+                Query<Usuario> usuarioQuery = session.createQuery("FROM Usuario WHERE nombre = :nombre", Usuario.class);
+                usuarioQuery.setParameter("nombre", usuario);
+                Usuario user = usuarioQuery.uniqueResult();
+
+                if (user != null) {
+                    // Crear una instancia de Pedido
+                    Pedido pedido = new Pedido(user.getNombre(), nomComida, cantidad);
+                    session.save(pedido); // Guardar el nuevo pedido en la base de datos
+                    transaction.commit(); // Confirmar la transacción
+                    return "Pedido añadido con éxito";
+                } else {
+                    // No se encontró el usuario
+                    transaction.rollback(); // Revertir la transacción
+                    return "No se encontró el usuario especificado";
+                }
+            } catch (Exception e) {
+                // Manejo de excepciones
+                e.printStackTrace();
+                transaction.rollback(); // Revertir la transacción
+                return "Error al añadir pedido";
+            }
+        }
+    }
+	
+	/**
 	 * Verifica si la cantidad de comida disponible es adecuada para ser cogida.
 	 * 
 	 * @param nomComida el nombre de la comida
