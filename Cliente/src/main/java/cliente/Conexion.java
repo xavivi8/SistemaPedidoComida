@@ -13,8 +13,8 @@ import java.util.Scanner;
 import Seguridad.Seguridad;
 
 public class Conexion {
-    //private static final String SERVER_IP = "127.0.0.1";
-    private static final String SERVER_IP = "143.47.54.55";
+    private static final String SERVER_IP = "127.0.0.1";
+    //private static final String SERVER_IP = "143.47.54.55";
     private static final int PUERTO = 2024;
     private static Socket socket;
 
