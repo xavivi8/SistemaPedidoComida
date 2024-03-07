@@ -58,6 +58,8 @@ public class Hilo extends Thread {
 
 				if (rolUsuario != -1) {
 					logeado = true;
+					System.out.println(logeado);
+					enviarMensajeCliente("Login exitoso");
 					if (!logeado) {
 						enviarMensajeCliente("Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.");
 					}
@@ -66,7 +68,7 @@ public class Hilo extends Thread {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} while (!logeado);
+		} while (logeado != true);
 
 		/**
 		 * Control de roll
