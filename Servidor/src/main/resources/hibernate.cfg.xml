@@ -17,6 +17,7 @@
         <property name="hibernate.archive.autodetection">class</property>
         <mapping class="bdControler.Comida" />
         <mapping class="bdControler.Usuario" />
+        <mapping class="bdControler.Pedido" />
         
     </session-factory>
 </hibernate-configuration>
