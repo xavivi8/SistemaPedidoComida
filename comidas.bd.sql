@@ -15,3 +15,10 @@ CREATE TABLE IF NOT EXISTS usuarios (
     apellido1 VARCHAR(250) NOT NULL,
     apellido2 VARCHAR(250)
 );
+
+CREATE TABLE pedido (
+    id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+    usuario VARCHAR(255),
+    comida VARCHAR(255),
+    cantidad INT
+);
