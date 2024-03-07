@@ -23,7 +23,7 @@ public class Log {
 	public Log(String logFileName) {
 		try {
 
-			fileHandler = new FileHandler(logFileName);
+			fileHandler = new FileHandler(logFileName, true); // Modo append
 			logger.addHandler(fileHandler); // para el nombre del fichero
 			logger.setLevel(Level.ALL); // Para que haga log de cualquier cosa que pasa
 			SimpleFormatter formatter = new SimpleFormatter(); // Para el formato
