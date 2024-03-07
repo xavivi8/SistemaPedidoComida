@@ -42,7 +42,7 @@ public class Hilo extends Thread {
 		boolean logeado = false;
 		String usuario = "";
 		String contrasenya = "";
-		do {
+		while (!logeado){
 			// Solicitar al cliente que ingrese el nombre de usuario y la contraseña
 			enviarMensajeCliente(
 					"Por favor, ingrese su nombre de usuario y contraseña separados por coma (usuario,contraseña):");
@@ -59,16 +59,17 @@ public class Hilo extends Thread {
 				if (rolUsuario != -1) {
 					logeado = true;
 					System.out.println(logeado);
+					System.out.println("Login exitoso");
 					enviarMensajeCliente("Login exitoso");
-					if (!logeado) {
-						enviarMensajeCliente("Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.");
-					}
+				} else {
+					System.out.println("Login no exitoso");
+					enviarMensajeCliente("Usuario o contraseña incorrectos. Por favor, inténtelo de nuevo.");
 				}
 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} while (logeado != true);
+		};
 
 		/**
 		 * Control de roll
