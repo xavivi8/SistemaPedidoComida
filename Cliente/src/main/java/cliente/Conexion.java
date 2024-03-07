@@ -63,11 +63,16 @@ public class Conexion {
     }
 
     private static boolean iniciarSesion(Socket socket) throws IOException {
-    	String respuesta;
-    	do {
-    		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        BufferedReader serverResponseReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        String respuesta = "";
+        int intentos = 0;
+        final int MAX_INTENTOS = 3;
 
+        while (!respuesta.equals("Login exitoso") && intentos < MAX_INTENTOS) {
+        	respuesta = serverResponseReader.readLine();
+            System.out.println(respuesta);
             System.out.println("Ingrese su nombre de usuario:");
             String usuario = reader.readLine();
             System.out.println("Ingrese su contraseña:");
@@ -77,14 +82,20 @@ public class Conexion {
             String contrasenaCifrada = cifrarContrasena(contrasena);
 
             // Envía el nombre de usuario y la contraseña cifrada al servidor
-            writer.println(usuario+","+contrasenaCifrada);
+            writer.println(usuario + "," + contrasenaCifrada);
 
             // Espera la respuesta del servidor para el inicio de sesión
-            BufferedReader serverResponseReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             respuesta = serverResponseReader.readLine();
-    	}while(respuesta.equals("Login exitoso") != true);
-        
-        return respuesta.equals("Login exitoso");
+            System.out.println(respuesta);
+            intentos++;
+        }
+
+        if (respuesta.equals("Login exitoso")) {
+            return true;
+        } else {
+            System.out.println("Número máximo de intentos alcanzado. Inicio de sesión fallido.");
+            return false;
+        }
     }
 
     private static String cifrarContrasena(String contrasena) {
