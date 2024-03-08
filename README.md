@@ -55,3 +55,11 @@ El proyecto utiliza la siguiente dependencia gestionada mediante Maven:
 El repositorio incluye un archivo `comidas.db.sql` que contiene el esquema de la base de datos utilizado por el servidor y la definición de las tablas relacionadas con las comidas, usuarios y pedidos.
 
 Este repositorio proporciona una solución completa para la gestión de información relacionada con comidas, desde el servidor que ofrece servicios para interactuar con la base de datos hasta el cliente que permite la interacción con el servidor remoto.
+
+## Autores
+
+- [Francisco Javier Martín-Lunas Escobar](https://github.com/xavivi8) - Desarrollador principal
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
