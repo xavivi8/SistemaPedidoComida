@@ -83,7 +83,7 @@ public class Hilo extends Thread {
 				e.printStackTrace();
 			}
 		};
-
+		logger.logConnection("Usuario: "+usuario);
 		/**
 		 * Control de roll
 		 */
