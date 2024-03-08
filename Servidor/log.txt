@@ -50,3 +50,7 @@ mar 07, 2024 8:52:06 P. M. logger.Log logConnection
 INFORMACIÓN: IP conectada: /127.0.0.1
 mar 07, 2024 8:58:25 P. M. logger.Log logConnection
 INFORMACIÓN: IP conectada: /127.0.0.1
+mar 08, 2024 9:02:55 A. M. logger.Log logConnection
+INFORMACIÓN: IP conectada: /127.0.0.1
+mar 08, 2024 9:03:03 A. M. logger.Log logConnection
+INFORMACIÓN: Usuario: Admin
